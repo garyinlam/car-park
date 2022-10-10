@@ -24,7 +24,11 @@ public class Main {
                     type = null;
             }
             Vehicle vehicle = vehicleFactory.createVehicle(type);
-            carPark.parkVehicle(vehicle);
+            try {
+                carPark.parkVehicle(vehicle);
+            } catch (NoSpaceException e){
+                System.err.println(e.getLocalizedMessage());
+            }
         }
         System.out.println(carPark.spacesRemaining());
         System.out.println(carPark.totalSpaces());

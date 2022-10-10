@@ -111,7 +111,7 @@ public class CarPark {
                 }
             }
         } else {
-            System.out.println("Full van" + van.getLicencePlate());
+            throw new NoSpaceException("No space for van, plate = " + van.getLicencePlate());
         }
     }
 
@@ -124,7 +124,7 @@ public class CarPark {
                 }
             }
         } else {
-            System.out.println("Full car" + car.getLicencePlate());
+            throw new NoSpaceException("No space for car, plate = " + car.getLicencePlate());
         }
     }
 
@@ -137,7 +137,7 @@ public class CarPark {
                 }
             }
         } else {
-            System.out.println("Full motorcycle" + motorcycle.getLicencePlate());
+            throw new NoSpaceException("No space for motorcycle, plate = " + motorcycle.getLicencePlate());
         }
     }
 
@@ -155,7 +155,7 @@ public class CarPark {
 
     public void printSpaces(){
         for (int i = 0; i < spaces.size(); i++) {
-            System.out.println(""+i+spaces.get(i).getParked());
+            System.out.println(i+" "+spaces.get(i).getParked());
         }
     }
 }
