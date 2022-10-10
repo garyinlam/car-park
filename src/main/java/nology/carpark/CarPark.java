@@ -23,7 +23,7 @@ public class CarPark {
         return spaces.size();
     }
 
-    public int spotsRemaining() {
+    public int spacesRemaining() {
         int spotsRemaining = 0;
         for (Space space: spaces) {
             if (!space.isOccupied()) spotsRemaining++;
@@ -31,7 +31,7 @@ public class CarPark {
         return spotsRemaining;
     }
 
-    public int regularSpotsRemaining() {
+    public int regularSpacesRemaining() {
         int spotsRemaining = 0;
         for (Space space: spaces) {
             if (!space.isOccupied() && space instanceof RegularSpace) {
@@ -42,17 +42,17 @@ public class CarPark {
     }
 
     public boolean isFull(){
-        return spotsRemaining() == 0;
+        return spacesRemaining() == 0;
     }
 
     public boolean isEmpty(){
-        return spotsRemaining() == totalSpaces();
+        return spacesRemaining() == totalSpaces();
     }
 
     public boolean isMotorcycleFull(){
         boolean isFull = true;
         for (Space space: spaces) {
-            if (space instanceof MotorcycleSpace && space.isOccupied()){
+            if (space instanceof MotorcycleSpace && !space.isOccupied()){
                 isFull = false;
                 break;
             }
@@ -63,7 +63,7 @@ public class CarPark {
     public boolean isCompactFull(){
         boolean isFull = true;
         for (Space space: spaces) {
-            if (space instanceof CompactSpace && space.isOccupied()){
+            if (space instanceof CompactSpace && !space.isOccupied()){
                 isFull = false;
                 break;
             }
@@ -74,7 +74,7 @@ public class CarPark {
     public boolean isRegularFull(){
         boolean isFull = true;
         for (Space space: spaces) {
-            if (space instanceof RegularSpace && space.isOccupied()){
+            if (space instanceof RegularSpace && !space.isOccupied()){
                 isFull = false;
                 break;
             }
@@ -90,10 +90,20 @@ public class CarPark {
         return vanSpaces;
     }
 
+    public void parkVehicle(Vehicle vehicle){
+        if (vehicle instanceof Van){
+            parkVehicle((Van) vehicle);
+        } else if (vehicle instanceof Car){
+            parkVehicle((Car) vehicle);
+        } else if (vehicle instanceof Motorcycle){
+            parkVehicle((Motorcycle) vehicle);
+        }
+    }
+
     public void parkVehicle(Van van){
-        if (regularSpotsRemaining() >= 3 ){
+        if (regularSpacesRemaining() >= 3 ){
             for (int i = 0; i < spaces.size(); i++) {
-                if (!spaces.get(i).isOccupied()){
+                if (!spaces.get(i).isOccupied() && spaces.get(i) instanceof RegularSpace){
                     spaces.get(i).setParked(van);
                     spaces.get(i+1).setParked(van);
                     spaces.get(i+2).setParked(van);
@@ -101,18 +111,20 @@ public class CarPark {
                 }
             }
         } else {
-            System.out.println("Cannot park, no space");
+            System.out.println("Full van" + van.getLicencePlate());
         }
     }
 
     public void parkVehicle(Car car){
-        if (!isCompactFull() || isRegularFull()){
+        if (!isCompactFull() || !isRegularFull()){
             for (Space space : spaces) {
                 if (!space.isOccupied() && !(space instanceof MotorcycleSpace)){
                     space.setParked(car);
                     break;
                 }
             }
+        } else {
+            System.out.println("Full car" + car.getLicencePlate());
         }
     }
 
@@ -124,6 +136,8 @@ public class CarPark {
                     break;
                 }
             }
+        } else {
+            System.out.println("Full motorcycle" + motorcycle.getLicencePlate());
         }
     }
 
@@ -137,5 +151,11 @@ public class CarPark {
 
     public void removeVehicle(Vehicle vehicle){
         removeVehicle(vehicle.getLicencePlate());
+    }
+
+    public void printSpaces(){
+        for (int i = 0; i < spaces.size(); i++) {
+            System.out.println(""+i+spaces.get(i).getParked());
+        }
     }
 }

@@ -19,4 +19,9 @@ public abstract class Vehicle {
             return false;
         }
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " licence plate = "+licencePlate;
+    }
 }
