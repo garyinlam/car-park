@@ -8,7 +8,7 @@ public class Main {
         CarPark carPark = new CarPark(30,20,50);
 
         VehicleFactory vehicleFactory = new VehicleFactory();
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < 30; i++) {
             VehicleType type;
             switch (RANDOM.nextInt(3)){
                 case 0:
@@ -33,6 +33,8 @@ public class Main {
         System.out.println(carPark.spacesRemaining());
         System.out.println(carPark.totalSpaces());
         System.out.println(carPark.vanSpaces());
+        carPark.removeVehicle("5");
+
         carPark.printSpaces();
     }
 }

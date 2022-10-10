@@ -2,6 +2,9 @@ package nology.carpark;
 
 public abstract class Vehicle {
     private String licencePlate;
+    private String make;
+    private String model;
+    private String colour;
 
     public Vehicle(String licencePlate) {
         this.licencePlate = licencePlate;

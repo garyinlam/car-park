@@ -102,11 +102,15 @@ public class CarPark {
 
     public void parkVehicle(Van van){
         if (regularSpacesRemaining() >= 3 ){
-            for (int i = 0; i < spaces.size(); i++) {
-                if (!spaces.get(i).isOccupied() && spaces.get(i) instanceof RegularSpace){
-                    spaces.get(i).setParked(van);
-                    spaces.get(i+1).setParked(van);
-                    spaces.get(i+2).setParked(van);
+            for (int i = 0; i < spaces.size()-3; i++) {
+                if (!(spaces.get(i) instanceof RegularSpace)){
+                    continue;
+                }
+                Space[] temp = {spaces.get(i),spaces.get(i+1),spaces.get(i+2)};
+                if(!temp[0].isOccupied() && !temp[1].isOccupied() && !temp[2].isOccupied()){
+                    temp[0].setParked(van);
+                    temp[1].setParked(van);
+                    temp[2].setParked(van);
                     break;
                 }
             }
@@ -143,6 +147,9 @@ public class CarPark {
 
     public void removeVehicle(String licencePlate){
         for (Space space : spaces) {
+            if(space.getParked() == null){
+                continue;
+            }
             if (space.getParked().getLicencePlate().equals(licencePlate)){
                 space.clearSpace();
             }
