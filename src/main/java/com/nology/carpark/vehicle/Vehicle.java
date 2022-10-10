@@ -1,4 +1,4 @@
-package nology.carpark;
+package com.nology.carpark.vehicle;
 
 public abstract class Vehicle {
     private String licencePlate;

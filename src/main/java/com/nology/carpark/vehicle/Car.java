@@ -1,4 +1,4 @@
-package nology.carpark;
+package com.nology.carpark.vehicle;
 
 public class Car extends Vehicle {
 

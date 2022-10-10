@@ -1,4 +1,14 @@
-package nology.carpark;
+package com.nology.carpark;
+
+import com.nology.carpark.exceptions.NoSpaceException;
+import com.nology.carpark.space.CompactSpace;
+import com.nology.carpark.space.MotorcycleSpace;
+import com.nology.carpark.space.RegularSpace;
+import com.nology.carpark.space.Space;
+import com.nology.carpark.vehicle.Car;
+import com.nology.carpark.vehicle.Motorcycle;
+import com.nology.carpark.vehicle.Van;
+import com.nology.carpark.vehicle.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;

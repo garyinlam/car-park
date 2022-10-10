@@ -1,4 +1,6 @@
-package nology.carpark;
+package com.nology.carpark.space;
+
+import com.nology.carpark.vehicle.Vehicle;
 
 public abstract class Space {
     private Vehicle parked;

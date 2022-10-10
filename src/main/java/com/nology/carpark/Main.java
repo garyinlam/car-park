@@ -1,4 +1,9 @@
-package nology.carpark;
+package com.nology.carpark;
+
+import com.nology.carpark.exceptions.NoSpaceException;
+import com.nology.carpark.utils.VehicleFactory;
+import com.nology.carpark.utils.VehicleType;
+import com.nology.carpark.vehicle.Vehicle;
 
 import java.util.Random;
 
