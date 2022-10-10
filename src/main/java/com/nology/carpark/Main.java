@@ -45,6 +45,7 @@ public class Main {
         carPark.parkVehicle(new Car("H3110"));
         carPark.parkVehicle(new Van("W0R1D"));
         carPark.parkVehicle(new Motorcycle("T3ST"));
+        carPark.parkVehicle(new Motorcycle("L4ST"),99);
         carPark.printSpaces();
     }
 }
