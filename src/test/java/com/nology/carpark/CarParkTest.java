@@ -1,5 +1,6 @@
 package com.nology.carpark;
 
+import com.nology.carpark.exceptions.NoSpaceException;
 import com.nology.carpark.utils.VehicleFactory;
 import com.nology.carpark.utils.VehicleType;
 import com.nology.carpark.vehicle.Car;
@@ -36,6 +37,87 @@ class CarParkTest {
         assertEquals(20,target.spacesRemaining());
         target.parkVehicle(new Motorcycle("A"));
         assertEquals(19,target.spacesRemaining());
+    }
+
+    @Test
+    void parkVehicle_ValidVanValidSpace_ReturnsCount(){
+        assertEquals(20,target.spacesRemaining());
+        target.parkVehicle(new Van("A"),11);
+        assertEquals(17,target.spacesRemaining());
+    }
+
+    @Test
+    void parkVehicle_ValidVanNonexistentSpace_ThrowsError(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Van("A"),51);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidVanOccupiedSpace_ThrowsError(){
+        target.parkVehicle(new Van("A"),11);
+        assertThrows(NoSpaceException.class, () -> {
+            target.parkVehicle(new Van("B"),11);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidVanInvalidSpaceType_ThrowsError(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Van("A"),1);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Van("A"),6);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidCarValidSpace_ReturnsCount(){
+        assertEquals(20,target.spacesRemaining());
+        target.parkVehicle(new Car("A"),6);
+        assertEquals(19,target.spacesRemaining());
+    }
+    @Test
+    void parkVehicle_ValidCarNonexistentSpace_ThrowsError(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Car("A"),51);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidCarOccupiedSpace_ThrowsError(){
+        target.parkVehicle(new Car("A"),6);
+        assertThrows(NoSpaceException.class, () -> {
+            target.parkVehicle(new Car("B"),6);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidCarInvalidSpaceType_ThrowsError(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Car("A"),1);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidMotorcycleValidSpace_ReturnsCount(){
+        assertEquals(20,target.spacesRemaining());
+        target.parkVehicle(new Motorcycle("A"),1);
+        assertEquals(19,target.spacesRemaining());
+    }
+    @Test
+    void parkVehicle_ValidMotorcycleNonexistentSpace_ThrowsError(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            target.parkVehicle(new Motorcycle("A"),51);
+        });
+    }
+
+    @Test
+    void parkVehicle_ValidMotorcycleOccupiedSpace_ThrowsError(){
+        target.parkVehicle(new Motorcycle("A"),1);
+        assertThrows(NoSpaceException.class, () -> {
+            target.parkVehicle(new Motorcycle("B"),1);
+        });
     }
 
     @Test

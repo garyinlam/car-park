@@ -3,6 +3,9 @@ package com.nology.carpark;
 import com.nology.carpark.exceptions.NoSpaceException;
 import com.nology.carpark.utils.VehicleFactory;
 import com.nology.carpark.utils.VehicleType;
+import com.nology.carpark.vehicle.Car;
+import com.nology.carpark.vehicle.Motorcycle;
+import com.nology.carpark.vehicle.Van;
 import com.nology.carpark.vehicle.Vehicle;
 
 import java.util.Random;
@@ -39,7 +42,9 @@ public class Main {
         System.out.println(carPark.totalSpaces());
         System.out.println(carPark.vanSpaces());
         carPark.removeVehicle("5");
-
+        carPark.parkVehicle(new Car("H3110"));
+        carPark.parkVehicle(new Van("W0R1D"));
+        carPark.parkVehicle(new Motorcycle("T3ST"));
         carPark.printSpaces();
     }
 }

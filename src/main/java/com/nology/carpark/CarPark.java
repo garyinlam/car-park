@@ -18,14 +18,15 @@ public class CarPark {
 
     public CarPark(int motorcycleSpaces, int compactSpace, int regularSpace) {
         spaces = new ArrayList<>();
+        int id = 0;
         for (int i = 0; i < motorcycleSpaces; i++) {
-            spaces.add(new MotorcycleSpace());
+            spaces.add(new MotorcycleSpace(id++));
         }
         for (int i = 0; i < compactSpace; i++) {
-            spaces.add(new CompactSpace());
+            spaces.add(new CompactSpace(id++));
         }
         for (int i = 0; i < regularSpace; i++) {
-            spaces.add(new RegularSpace());
+            spaces.add(new RegularSpace(id++));
         }
     }
 
@@ -155,6 +156,70 @@ public class CarPark {
         }
     }
 
+    public void parkVehicle(Motorcycle motorcycle, int spaceId){
+        Space space = null;
+        for (Space s: spaces) {
+            if (s.getId() == spaceId){
+                space = s;
+            }
+        }
+        if(space == null){
+            throw new IllegalArgumentException("Space with that id does not exist");
+        }
+        if (space.isOccupied()){
+            throw new NoSpaceException("That space is occupied");
+        }
+        space.setParked(motorcycle);
+    }
+
+    public void parkVehicle(Car car, int spaceId){
+        Space space = null;
+        for (Space s: spaces) {
+            if (s.getId() == spaceId){
+                space = s;
+            }
+        }
+        if(space == null){
+            throw new IllegalArgumentException("Space with that id does not exist");
+        }
+        if (space.isOccupied()){
+           throw new NoSpaceException("That space is occupied");
+        }
+        if (space instanceof MotorcycleSpace){
+           throw new IllegalArgumentException("Cannot park in motorcycle space with a car");
+        }
+        space.setParked(car);
+    }
+
+    public void parkVehicle(Van van, int spaceId){
+        List<Space> space = new ArrayList<>();
+        for (Space s: spaces) {
+            for (int i = 0; i < 3; i++) {
+                if (s.getId() == spaceId+i){
+                    space.add(s);
+                }
+            }
+        }
+        if (space.isEmpty()){
+            throw new IllegalArgumentException("Space with that id does not exist");
+        }
+        if(space.size() != 3){
+            throw new IllegalArgumentException("That space cannot fit a van");
+        }
+        for (Space s: space) {
+            if (s.isOccupied()){
+                throw new NoSpaceException("That space is occupied");
+            }
+            if (!(s instanceof RegularSpace)){
+                throw new IllegalArgumentException("Cannot park in this space with a van");
+            }
+        }
+        for (Space s: space) {
+            s.setParked(van);
+        }
+
+    }
+
     public void removeVehicle(String licencePlate){
         for (Space space : spaces) {
             if(space.getParked() == null){
@@ -171,8 +236,8 @@ public class CarPark {
     }
 
     public void printSpaces(){
-        for (int i = 0; i < spaces.size(); i++) {
-            System.out.println(i+" "+spaces.get(i).getParked());
+        for (Space space : spaces) {
+            System.out.println(space.getId() + " " + space.getParked());
         }
     }
 }

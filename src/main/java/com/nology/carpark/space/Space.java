@@ -4,6 +4,15 @@ import com.nology.carpark.vehicle.Vehicle;
 
 public abstract class Space {
     private Vehicle parked;
+    private int id;
+
+    public Space(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public Vehicle getParked() {
         return parked;

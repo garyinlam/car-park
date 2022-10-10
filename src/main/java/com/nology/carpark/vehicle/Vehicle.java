@@ -44,6 +44,6 @@ public abstract class Vehicle {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " licence plate = "+licencePlate;
+        return getClass().getSimpleName() + " | licence plate = "+licencePlate;
     }
 }
