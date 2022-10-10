@@ -31,6 +31,16 @@ public class CarPark {
         return spotsRemaining;
     }
 
+    public int regularSpotsRemaining() {
+        int spotsRemaining = 0;
+        for (Space space: spaces) {
+            if (!space.isOccupied() && space instanceof RegularSpace) {
+                spotsRemaining++;
+            }
+        }
+        return spotsRemaining;
+    }
+
     public boolean isFull(){
         return spotsRemaining() == 0;
     }
@@ -80,4 +90,52 @@ public class CarPark {
         return vanSpaces;
     }
 
+    public void parkVehicle(Van van){
+        if (regularSpotsRemaining() >= 3 ){
+            for (int i = 0; i < spaces.size(); i++) {
+                if (!spaces.get(i).isOccupied()){
+                    spaces.get(i).setParked(van);
+                    spaces.get(i+1).setParked(van);
+                    spaces.get(i+2).setParked(van);
+                    break;
+                }
+            }
+        } else {
+            System.out.println("Cannot park, no space");
+        }
+    }
+
+    public void parkVehicle(Car car){
+        if (!isCompactFull() || isRegularFull()){
+            for (Space space : spaces) {
+                if (!space.isOccupied() && !(space instanceof MotorcycleSpace)){
+                    space.setParked(car);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void parkVehicle(Motorcycle motorcycle){
+        if (!isFull()){
+            for (Space space : spaces) {
+                if (!space.isOccupied()){
+                    space.setParked(motorcycle);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void removeVehicle(String licencePlate){
+        for (Space space : spaces) {
+            if (space.getParked().getLicencePlate().equals(licencePlate)){
+                space.clearSpace();
+            }
+        }
+    }
+
+    public void removeVehicle(Vehicle vehicle){
+        removeVehicle(vehicle.getLicencePlate());
+    }
 }

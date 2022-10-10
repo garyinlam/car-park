@@ -11,6 +11,10 @@ public abstract class Space {
         this.parked = parked;
     }
 
+    public void clearSpace(){
+        parked = null;
+    }
+
     public boolean isOccupied(){
         return parked != null;
     }
