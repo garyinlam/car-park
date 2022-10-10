@@ -10,6 +10,25 @@ public abstract class Vehicle {
         this.licencePlate = licencePlate;
     }
 
+    public Vehicle(String licencePlate, String make, String model, String colour) {
+        this.licencePlate = licencePlate;
+        this.make = make;
+        this.model = model;
+        this.colour = colour;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
     public String getLicencePlate() {
         return licencePlate;
     }

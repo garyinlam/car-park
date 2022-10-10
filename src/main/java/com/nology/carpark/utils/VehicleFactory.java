@@ -1,6 +1,5 @@
 package com.nology.carpark.utils;
 
-import com.nology.carpark.utils.VehicleType;
 import com.nology.carpark.vehicle.Car;
 import com.nology.carpark.vehicle.Motorcycle;
 import com.nology.carpark.vehicle.Van;
